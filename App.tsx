@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-
+import { ThemeProvider } from 'styled-components/native'
 import {
   useFonts,
   NunitoSans_400Regular,
   NunitoSans_700Bold,
 } from '@expo-google-fonts/nunito-sans'
+import { defaultTheme } from '@/styles/default-theme'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,10 +19,12 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="dark" translucent />
-    </View>
+    <ThemeProvider theme={defaultTheme}>
+      <View style={styles.container}>
+        <Text>Open up App.tsx to start working on your app!</Text>
+        <StatusBar style="dark" translucent />
+      </View>
+    </ThemeProvider>
   )
 }
 
