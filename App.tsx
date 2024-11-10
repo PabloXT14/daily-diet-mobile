@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 import {
   useFonts,
   NunitoSans_400Regular,
   NunitoSans_700Bold,
 } from '@expo-google-fonts/nunito-sans'
+
 import { defaultTheme } from '@/styles/default-theme'
-import { Rocket } from 'phosphor-react-native'
+import { Loading } from '@/components/loading'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -15,16 +16,15 @@ export default function App() {
     NunitoSans_700Bold,
   })
 
-  if (!fontsLoaded) {
-    return <ActivityIndicator />
-  }
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <Rocket size={24} />
         <StatusBar style="dark" translucent />
+        {fontsLoaded ? (
+          <Text>Open up App.tsx to start working on your app!</Text>
+        ) : (
+          <Loading />
+        )}
       </View>
     </ThemeProvider>
   )
