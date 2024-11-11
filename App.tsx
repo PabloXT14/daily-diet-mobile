@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
-import { PencilSimpleLine } from 'phosphor-react-native'
 
 import {
   useFonts,
@@ -11,7 +10,7 @@ import {
 
 import { defaultTheme } from '@/styles/default-theme'
 import { Loading } from '@/components/loading'
-import { Button } from '@/components/button'
+import { Input } from '@/components/input'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,10 +27,7 @@ export default function App() {
             Open up App.tsx to start working on your app!
           </Text>
 
-          <Button>
-            <PencilSimpleLine size={18} color={defaultTheme.colors.white} />
-            <Button.Title>Button</Button.Title>
-          </Button>
+          <Input label="Label" />
         </View>
       ) : (
         <Loading />
@@ -43,9 +39,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
+    padding: 20,
   },
   title: {
     fontSize: 16,
