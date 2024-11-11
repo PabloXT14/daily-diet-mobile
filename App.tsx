@@ -11,6 +11,7 @@ import {
 import { defaultTheme } from '@/styles/default-theme'
 import { Loading } from '@/components/loading'
 import { Input } from '@/components/input'
+import { Toggle } from '@/components/toggle'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +28,10 @@ export default function App() {
             Open up App.tsx to start working on your app!
           </Text>
 
-          <Input label="Label" />
+          <View style={styles.togglesContainer}>
+            <Toggle title="Sim" isChecked />
+            <Toggle variant="secondary" title="Não" />
+          </View>
         </View>
       ) : (
         <Loading />
@@ -46,5 +50,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     marginBottom: 20,
+  },
+  togglesContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    gap: 8,
   },
 })
