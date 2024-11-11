@@ -9,8 +9,11 @@ type ButtonStyleProps = {
 }
 
 export const Container = styled(Pressable)<ButtonStyleProps>`
-  height: 50px;
-  width: '100%';
+  flex: 1;
+  
+  min-height: 50px;
+  max-height: 50px;
+  
   padding: 0 24px;
 
   flex-direction: row;
