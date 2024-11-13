@@ -70,3 +70,23 @@ export const PercentIcon = styled(ArrowUpRight).attrs<PercentStyleProps>(
   top: 8px;
   right: 8px;
 `
+
+export const MealsContainer = styled.View`
+  flex: 1;
+`
+
+export const MealsNewContainer = styled.View`
+  width: 100%;
+  margin-bottom: 32px;
+
+  gap: 8px;
+`
+
+export const MealsTitle = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[950]};
+    font-family: ${theme.fontFamily.regular};
+    font-size: ${theme.fontSize.base}px;
+    line-height: 20px; /* 130% */
+  `}
+`
