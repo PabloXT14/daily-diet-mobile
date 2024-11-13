@@ -19,8 +19,8 @@ export function Home() {
         <Profile source={{ uri: 'https://github.com/pabloxt14.png' }} />
       </Header>
 
-      <PercentContainer activeOpacity={0.7}>
-        <PercentIcon />
+      <PercentContainer variant="primary" activeOpacity={0.7}>
+        <PercentIcon variant="primary" />
         <PercentNumber>90,86%</PercentNumber>
         <PercentDescription>das refeições dentro da dieta</PercentDescription>
       </PercentContainer>

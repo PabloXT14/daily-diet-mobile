@@ -17,7 +17,13 @@ export const Header = styled.View`
   margin-bottom: 32px;
 `
 
-export const PercentContainer = styled(TouchableOpacity)`
+type PercentVariant = 'primary' | 'secondary'
+
+type PercentStyleProps = {
+  variant: PercentVariant
+}
+
+export const PercentContainer = styled(TouchableOpacity)<PercentStyleProps>`
   flex: 1;
   position: relative;
 
@@ -32,7 +38,7 @@ export const PercentContainer = styled(TouchableOpacity)`
   margin-bottom: 40px;
 
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.green[100]};
+  background-color: ${({ theme, variant }) => (variant === 'primary' ? theme.colors.green[100] : theme.colors.red[100])};
 `
 
 export const PercentNumber = styled.Text`
@@ -53,10 +59,13 @@ export const PercentDescription = styled.Text`
   `}
 `
 
-export const PercentIcon = styled(ArrowUpRight).attrs(({ theme }) => ({
-  size: 24,
-  color: theme.colors.green[500],
-}))`
+export const PercentIcon = styled(ArrowUpRight).attrs<PercentStyleProps>(
+  ({ theme, variant }) => ({
+    size: 24,
+    color:
+      variant === 'primary' ? theme.colors.green[500] : theme.colors.red[600],
+  })
+)`
   position: absolute;
   top: 8px;
   right: 8px;
