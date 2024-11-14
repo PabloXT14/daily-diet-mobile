@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native'
+import { FlatList } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { Plus } from 'phosphor-react-native'
 
@@ -110,8 +110,6 @@ export function Home() {
           </Button>
         </MealsNewContainer>
 
-        <View style={{ height: 64, backgroundColor: colors.gray[600] }} />
-
         <FlatList
           data={Object.entries(MEALS_BY_DATE)} // [[date, meals], [date, meals], [date, meals]]
           keyExtractor={([date, meals]) => date}
@@ -122,8 +120,6 @@ export function Home() {
           contentContainerStyle={{
             gap: 32,
             paddingBottom: 100,
-            borderWidth: 1,
-            borderColor: 'red',
           }}
         />
       </MealsContainer>
