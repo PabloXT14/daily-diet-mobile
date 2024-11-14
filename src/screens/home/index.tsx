@@ -1,5 +1,10 @@
+import { FlatList, View } from 'react-native'
+import { useTheme } from 'styled-components/native'
+import { Plus } from 'phosphor-react-native'
+
 import { Profile } from '@/components/profile'
 import { Button } from '@/components/button'
+import { DayList } from '@/components/day-list'
 
 import {
   Container,
@@ -14,8 +19,6 @@ import {
 } from './styles'
 
 import DailyDietLogo from '@/assets/daily-diet-logo.svg'
-import { Plus } from 'phosphor-react-native'
-import { useTheme } from 'styled-components/native'
 
 const MEALS_BY_DATE = {
   '2023-02-08': [
@@ -63,6 +66,20 @@ const MEALS_BY_DATE = {
       datetime: '2023-02-09T12:00:00',
       isInDiet: true,
     },
+    {
+      id: '7',
+      name: 'Refeição 7',
+      description: 'Descrição da refeição 7',
+      datetime: '2023-02-09T13:00:00',
+      isInDiet: false,
+    },
+    {
+      id: '8',
+      name: 'Refeição 8',
+      description: 'Descrição da refeição 8',
+      datetime: '2023-02-09T14:00:00',
+      isInDiet: true,
+    },
   ],
 }
 
@@ -92,6 +109,23 @@ export function Home() {
             <Button.Title>Nova refeição</Button.Title>
           </Button>
         </MealsNewContainer>
+
+        <View style={{ height: 64, backgroundColor: colors.gray[600] }} />
+
+        <FlatList
+          data={Object.entries(MEALS_BY_DATE)} // [[date, meals], [date, meals], [date, meals]]
+          keyExtractor={([date, meals]) => date}
+          renderItem={({ item: [date, meals] }) => (
+            <DayList data={{ date, meals }} />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            gap: 32,
+            paddingBottom: 100,
+            borderWidth: 1,
+            borderColor: 'red',
+          }}
+        />
       </MealsContainer>
     </Container>
   )

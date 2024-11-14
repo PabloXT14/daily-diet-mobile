@@ -73,11 +73,13 @@ export const PercentIcon = styled(ArrowUpRight).attrs<PercentStyleProps>(
 
 export const MealsContainer = styled.View`
   flex: 1;
+
+  gap: 32px;
 `
 
 export const MealsNewContainer = styled.View`
-  width: 100%;
-  margin-bottom: 32px;
+  /* flex: 1;
+  justify-content: center; */
 
   gap: 8px;
 `
