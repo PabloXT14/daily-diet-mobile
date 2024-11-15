@@ -23,7 +23,7 @@ type PercentStyleProps = {
   variant: PercentVariant
 }
 
-export const PercentContainer = styled(TouchableOpacity)<PercentStyleProps>`
+export const PercentContainer = styled.View<PercentStyleProps>`
   flex: 1;
   position: relative;
 
@@ -59,17 +59,19 @@ export const PercentDescription = styled.Text`
   `}
 `
 
+export const PercentButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+`
+
 export const PercentIcon = styled(ArrowUpRight).attrs<PercentStyleProps>(
   ({ theme, variant }) => ({
     size: 24,
     color:
       variant === 'primary' ? theme.colors.green[500] : theme.colors.red[600],
   })
-)`
-  position: absolute;
-  top: 8px;
-  right: 8px;
-`
+)``
 
 export const MealsContainer = styled.View`
   flex: 1;
