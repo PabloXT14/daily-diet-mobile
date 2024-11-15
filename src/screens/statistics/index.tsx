@@ -1,10 +1,24 @@
-import { Text } from 'react-native'
-import { Container } from './styles'
+import {
+  Container,
+  PercentButton,
+  PercentContainer,
+  PercentDescription,
+  PercentIcon,
+  PercentNumber,
+} from './styles'
 
 export function Statistics() {
   return (
     <Container>
-      <Text>Statistics</Text>
+      <PercentContainer variant="primary">
+        <PercentButton>
+          <PercentIcon variant="primary" />
+        </PercentButton>
+
+        <PercentNumber>90,86%</PercentNumber>
+
+        <PercentDescription>das refeições dentro da dieta</PercentDescription>
+      </PercentContainer>
     </Container>
   )
 }
