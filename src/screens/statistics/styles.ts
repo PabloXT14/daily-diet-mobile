@@ -85,3 +85,42 @@ export const ContentTitle = styled.Text`
 export const ContentData = styled.View`
   gap: 12px;
 `
+
+type StatisticCardProps = {
+  color: 'green' | 'red' | 'gray'
+}
+
+export const StatisticCard = styled.View<StatisticCardProps>`
+  flex: 1;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+  gap: 8px;
+
+  border-radius: 8px;
+  background-color: ${({ theme, color }) =>
+    (color === 'green' && theme.colors.green[100]) ||
+    (color === 'red' && theme.colors.red[100]) ||
+    (color === 'gray' && theme.colors.gray[100])}
+`
+
+export const StatisticCardNumber = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[950]};
+    font-family: ${theme.fontFamily.bold};
+    font-size: ${theme.fontSize.xl}px;
+    line-height: 30px; /* 130% */
+  `}
+`
+
+export const StatisticCardDescription = styled.Text`
+  text-align: center;
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[900]};
+    font-family: ${theme.fontFamily.regular};
+    font-size: ${theme.fontSize.sm}px;
+    line-height: 18px; /* 130% */
+  `}
+`

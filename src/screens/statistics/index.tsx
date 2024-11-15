@@ -1,4 +1,4 @@
-import { Text } from 'react-native'
+import { View } from 'react-native'
 import {
   Container,
   Content,
@@ -9,6 +9,9 @@ import {
   PercentDescription,
   PercentIcon,
   PercentNumber,
+  StatisticCard,
+  StatisticCardDescription,
+  StatisticCardNumber,
 } from './styles'
 
 export function Statistics() {
@@ -28,8 +31,39 @@ export function Statistics() {
         <ContentTitle>Estatísticas gerais</ContentTitle>
 
         <ContentData>
-          <Text>Dado 1</Text>
-          <Text>Dado 2</Text>
+          <StatisticCard color="gray">
+            <StatisticCardNumber>22</StatisticCardNumber>
+
+            <StatisticCardDescription>
+              melhor sequencia de pratos dentro da dieta
+            </StatisticCardDescription>
+          </StatisticCard>
+
+          <StatisticCard color="gray">
+            <StatisticCardNumber>109</StatisticCardNumber>
+
+            <StatisticCardDescription>
+              refeições registradas
+            </StatisticCardDescription>
+          </StatisticCard>
+
+          <View style={{ flexDirection: 'row', gap: 12 }}>
+            <StatisticCard color="green">
+              <StatisticCardNumber>99</StatisticCardNumber>
+
+              <StatisticCardDescription>
+                refeições dentro da dieta
+              </StatisticCardDescription>
+            </StatisticCard>
+
+            <StatisticCard color="red">
+              <StatisticCardNumber>10</StatisticCardNumber>
+
+              <StatisticCardDescription>
+                refeições fora da dieta
+              </StatisticCardDescription>
+            </StatisticCard>
+          </View>
         </ContentData>
       </Content>
     </Container>
