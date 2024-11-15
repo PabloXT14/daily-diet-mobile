@@ -9,6 +9,7 @@ import {
 
 import { Loading } from '@/components/loading'
 import { Home } from '@/screens/home'
+import { Statistics } from '@/screens/statistics'
 
 import { defaultTheme } from '@/styles/default-theme'
 
@@ -21,7 +22,7 @@ export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar style="dark" translucent />
-      {fontsLoaded ? <Home /> : <Loading />}
+      {fontsLoaded ? <Statistics /> : <Loading />}
     </ThemeProvider>
   )
 }
