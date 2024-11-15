@@ -59,3 +59,29 @@ export const PercentIcon = styled(ArrowLeft).attrs<PercentStyleProps>(
       variant === 'primary' ? theme.colors.green[500] : theme.colors.red[600],
   })
 )``
+
+export const Content = styled.View`
+  flex: 1;
+  background: ${({ theme }) => theme.colors.gray[50]};
+
+  gap: 24px;
+  margin-top: -32px;
+  padding: 32px 24px;
+
+  border-radius: 20px 20px 0 0;
+`
+
+export const ContentTitle = styled.Text`
+  text-align: center;
+
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[950]};
+    font-family: ${theme.fontFamily.bold};
+    font-size: ${theme.fontSize.sm}px;
+    line-height: 18px; /* 130% */
+  `}
+`
+
+export const ContentData = styled.View`
+  gap: 12px;
+`

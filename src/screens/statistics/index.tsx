@@ -1,5 +1,9 @@
+import { Text } from 'react-native'
 import {
   Container,
+  Content,
+  ContentData,
+  ContentTitle,
   PercentButton,
   PercentContainer,
   PercentDescription,
@@ -19,6 +23,15 @@ export function Statistics() {
 
         <PercentDescription>das refeições dentro da dieta</PercentDescription>
       </PercentContainer>
+
+      <Content>
+        <ContentTitle>Estatísticas gerais</ContentTitle>
+
+        <ContentData>
+          <Text>Dado 1</Text>
+          <Text>Dado 2</Text>
+        </ContentData>
+      </Content>
     </Container>
   )
 }
