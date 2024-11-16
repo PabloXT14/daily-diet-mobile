@@ -48,7 +48,7 @@ export function Statistics() {
           </StatisticCard>
 
           <View style={{ flexDirection: 'row', gap: 12 }}>
-            <StatisticCard color="green">
+            <StatisticCard color="green" style={{ flex: 1 }}>
               <StatisticCardNumber>99</StatisticCardNumber>
 
               <StatisticCardDescription>
@@ -56,7 +56,7 @@ export function Statistics() {
               </StatisticCardDescription>
             </StatisticCard>
 
-            <StatisticCard color="red">
+            <StatisticCard color="red" style={{ flex: 1 }}>
               <StatisticCardNumber>10</StatisticCardNumber>
 
               <StatisticCardDescription>

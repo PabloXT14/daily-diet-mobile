@@ -83,6 +83,8 @@ export const ContentTitle = styled.Text`
 `
 
 export const ContentData = styled.View`
+  flex-direction: column;
+
   gap: 12px;
 `
 
@@ -91,7 +93,7 @@ type StatisticCardProps = {
 }
 
 export const StatisticCard = styled.View<StatisticCardProps>`
-  flex: 1;
+  width: 100%;
 
   align-items: center;
   justify-content: center;
