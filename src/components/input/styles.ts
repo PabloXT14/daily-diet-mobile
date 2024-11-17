@@ -2,9 +2,8 @@ import { TextInput } from 'react-native'
 import { css, styled } from 'styled-components/native'
 
 export const Container = styled.View`
+  /* width: 100%; */
   flex: 1;
-
-  max-height: 70px;
   gap: 4px;
 `
 
@@ -13,12 +12,10 @@ type InputContainerProps = {
 }
 
 export const InputContainer = styled(TextInput)<InputContainerProps>`
-  height: 48px;
-  padding: 0 14px;
+  min-height: 48px;
+  padding: 10px 14px;
 
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
+  vertical-align: top;
 
   border-radius: 6px;
 
