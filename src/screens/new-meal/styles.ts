@@ -50,3 +50,32 @@ export const Content = styled.View`
 
   border-radius: 20px 20px 0 0;
 `
+
+export const Form = styled.View`
+  gap: 24px;
+
+  /* border: 1px solid red; */
+`
+
+export const DateTimeContainer = styled.View`
+  flex-direction: row;
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+`
+
+export const IsInDietContainer = styled.View`
+  gap: 8px;
+`
+
+export const IsInDietTitle = styled.Text`
+   ${({ theme }) => css`
+    color: ${theme.colors.gray[900]};
+    font-family: ${theme.fontFamily.bold};
+    font-size: ${theme.fontSize.sm}px;
+    line-height: 18px; /* 130% */
+  `}
+`

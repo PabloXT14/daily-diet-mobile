@@ -1,13 +1,29 @@
+import { useState } from 'react'
+import { KeyboardAvoidingView, Platform, View } from 'react-native'
+
+import { Button } from '@/components/button'
+import { Input } from '@/components/input'
+
 import {
   ButtonGoBack,
   ButtonGoBackIcon,
   Container,
   Content,
+  DateTimeContainer,
+  Form,
   Header,
   HeaderTitle,
+  IsInDietContainer,
+  IsInDietTitle,
 } from './styles'
+import { Toggle } from '@/components/toggle'
+
+const keyboardAvoidingBehavior =
+  Platform.OS === 'android' ? 'height' : 'position'
 
 export function NewMeal() {
+  const [isInDiet, setIsInDiet] = useState(true)
+
   return (
     <Container>
       <Header>
@@ -18,7 +34,52 @@ export function NewMeal() {
         <HeaderTitle>Nova refeição</HeaderTitle>
       </Header>
 
-      <Content></Content>
+      <Content>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={keyboardAvoidingBehavior}
+        >
+          <Form>
+            <Input label="Nome" />
+
+            <Input
+              label="Descrição"
+              style={{ height: 120 }}
+              multiline
+              numberOfLines={4}
+              textAlignVertical="top"
+            />
+
+            <DateTimeContainer>
+              <Input label="Data" />
+
+              <Input label="Hora" />
+            </DateTimeContainer>
+
+            <IsInDietContainer>
+              <IsInDietTitle>Esta dentro da dieta?</IsInDietTitle>
+
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                <Toggle
+                  title="Sim"
+                  isChecked={isInDiet}
+                  onPress={() => setIsInDiet(true)}
+                />
+                <Toggle
+                  title="Nao"
+                  variant="secondary"
+                  isChecked={!isInDiet}
+                  onPress={() => setIsInDiet(false)}
+                />
+              </View>
+            </IsInDietContainer>
+          </Form>
+        </KeyboardAvoidingView>
+
+        <Button>
+          <Button.Title>Cadastrar refeição</Button.Title>
+        </Button>
+      </Content>
     </Container>
   )
 }
