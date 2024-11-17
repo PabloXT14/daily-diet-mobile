@@ -35,6 +35,7 @@ function InputField({ inputRef, ...rest }: InputFieldProps) {
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       cursorColor={colors.gray[950]}
+      numberOfLines={1}
       {...rest}
     />
   )

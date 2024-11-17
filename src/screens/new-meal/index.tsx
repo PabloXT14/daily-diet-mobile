@@ -17,12 +17,44 @@ import {
   IsInDietTitle,
 } from './styles'
 import { Toggle } from '@/components/toggle'
+import { dateApplyMask } from '@/utils/masks/date-apply-mask'
+import { hourApplyMask } from '@/utils/masks/hour-apply-mask'
 
 const keyboardAvoidingBehavior =
   Platform.OS === 'android' ? 'height' : 'position'
 
 export function NewMeal() {
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
   const [isInDiet, setIsInDiet] = useState(true)
+
+  function applyDateMask(value: string) {
+    const onlyNumbers = value.replace(/\D/g, '')
+
+    if (onlyNumbers.length === 8) {
+      const parsedDate = dateApplyMask(onlyNumbers)
+
+      return setDate(parsedDate)
+    }
+
+    if (onlyNumbers.length < 8) {
+      return setDate(onlyNumbers)
+    }
+  }
+
+  function applyHourMask(value: string) {
+    const onlyNumbers = value.replace(/\D/g, '')
+
+    if (onlyNumbers.length === 4) {
+      const parsedHour = hourApplyMask(onlyNumbers)
+
+      setTime(parsedHour)
+    }
+
+    if (onlyNumbers.length < 4) {
+      setTime(onlyNumbers)
+    }
+  }
 
   return (
     <Container>
@@ -60,13 +92,13 @@ export function NewMeal() {
               <Input.Container style={{ flex: 1 }}>
                 <Input.Label>Data</Input.Label>
 
-                <Input.Field />
+                <Input.Field value={date} onChangeText={applyDateMask} />
               </Input.Container>
 
               <Input.Container style={{ flex: 1 }}>
                 <Input.Label>Hora</Input.Label>
 
-                <Input.Field />
+                <Input.Field value={time} onChangeText={applyHourMask} />
               </Input.Container>
             </DateTimeContainer>
 

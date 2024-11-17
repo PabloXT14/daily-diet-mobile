@@ -15,8 +15,6 @@ export const Field = styled(TextInput)<FieldProps>`
 
   padding: 10px 14px;
 
-  vertical-align: top;
-
   border-radius: 6px;
 
   ${({ theme, isFocused }) => css`
