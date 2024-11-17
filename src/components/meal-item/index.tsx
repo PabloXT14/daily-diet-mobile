@@ -13,7 +13,7 @@ export function MealItem({ meal }: MealItemProps) {
 
       <Divider />
 
-      <Title>{meal.name}</Title>
+      <Title numberOfLines={1}>{meal.name}</Title>
 
       <Status variant={meal.isInDiet ? 'primary' : 'secondary'} />
     </Container>
