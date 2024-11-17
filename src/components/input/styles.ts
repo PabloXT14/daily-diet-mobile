@@ -6,11 +6,11 @@ export const Container = styled.View`
   gap: 4px;
 `
 
-type InputContainerProps = {
+type FieldProps = {
   isFocused: boolean
 }
 
-export const InputContainer = styled(TextInput)<InputContainerProps>`
+export const Field = styled(TextInput)<FieldProps>`
   min-height: 48px;
 
   padding: 10px 14px;

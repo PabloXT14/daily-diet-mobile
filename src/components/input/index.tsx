@@ -1,8 +1,14 @@
 import { useState, type RefObject } from 'react'
-import type { TextInput, TextInputProps, ViewStyle } from 'react-native'
+import type {
+  TextInput,
+  TextInputProps,
+  TextProps,
+  ViewProps,
+  ViewStyle,
+} from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import { Container, InputContainer, Label } from './styles'
+import { Container, Field, Label } from './styles'
 
 type InputProps = TextInputProps & {
   label?: string
@@ -10,26 +16,36 @@ type InputProps = TextInputProps & {
   externalContainerStyle?: ViewStyle
 }
 
-export function Input({
-  label,
-  inputRef,
-  externalContainerStyle,
-  ...rest
-}: InputProps) {
+function InputContainer({ ...props }: ViewProps) {
+  return <Container {...props} />
+}
+
+type InputFieldProps = TextInputProps & {
+  inputRef?: RefObject<TextInput>
+}
+
+function InputField({ inputRef, ...rest }: InputFieldProps) {
   const [isFocused, setFocused] = useState(false)
   const { colors } = useTheme()
 
   return (
-    <Container style={externalContainerStyle}>
-      {label && <Label>{label}</Label>}
-      <InputContainer
-        ref={inputRef}
-        isFocused={isFocused}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        cursorColor={colors.gray[950]}
-        {...rest}
-      />
-    </Container>
+    <Field
+      ref={inputRef}
+      isFocused={isFocused}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      cursorColor={colors.gray[950]}
+      {...rest}
+    />
   )
+}
+
+function InputLabel({ ...props }: TextProps) {
+  return <Label {...props} />
+}
+
+export const Input = {
+  Container: InputContainer,
+  Field: InputField,
+  Label: InputLabel,
 }

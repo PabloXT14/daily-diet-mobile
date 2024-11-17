@@ -40,19 +40,34 @@ export function NewMeal() {
           behavior={keyboardAvoidingBehavior}
         >
           <Form>
-            <Input label="Nome" />
+            <Input.Container>
+              <Input.Label>Nome</Input.Label>
 
-            <Input
-              label="Descrição"
-              style={{ minHeight: 142 }}
-              multiline
-              textAlignVertical="top"
-            />
+              <Input.Field />
+            </Input.Container>
+
+            <Input.Container>
+              <Input.Label>Descrição</Input.Label>
+              <Input.Field
+                style={{ minHeight: 142 }}
+                multiline
+                numberOfLines={5}
+                textAlignVertical="top"
+              />
+            </Input.Container>
 
             <DateTimeContainer>
-              <Input label="Data" externalContainerStyle={{ flex: 1 }} />
+              <Input.Container style={{ flex: 1 }}>
+                <Input.Label>Data</Input.Label>
 
-              <Input label="Hora" externalContainerStyle={{ flex: 1 }} />
+                <Input.Field />
+              </Input.Container>
+
+              <Input.Container style={{ flex: 1 }}>
+                <Input.Label>Hora</Input.Label>
+
+                <Input.Field />
+              </Input.Container>
             </DateTimeContainer>
 
             <IsInDietContainer>
