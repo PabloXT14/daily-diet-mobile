@@ -58,12 +58,10 @@ export const Form = styled.View`
 `
 
 export const DateTimeContainer = styled.View`
-  flex-direction: row;
   width: 100%;
 
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-
   gap: 20px;
 `
 

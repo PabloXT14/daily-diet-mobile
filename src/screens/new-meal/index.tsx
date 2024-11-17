@@ -44,16 +44,15 @@ export function NewMeal() {
 
             <Input
               label="Descrição"
-              style={{ height: 120 }}
+              style={{ minHeight: 142 }}
               multiline
-              numberOfLines={4}
               textAlignVertical="top"
             />
 
             <DateTimeContainer>
-              <Input label="Data" />
+              <Input label="Data" externalContainerStyle={{ flex: 1 }} />
 
-              <Input label="Hora" />
+              <Input label="Hora" externalContainerStyle={{ flex: 1 }} />
             </DateTimeContainer>
 
             <IsInDietContainer>
