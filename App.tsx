@@ -11,6 +11,7 @@ import { Loading } from '@/components/loading'
 import { Home } from '@/screens/home'
 import { Statistics } from '@/screens/statistics'
 import { NewMeal } from '@/screens/new-meal'
+import { Feedback } from '@/screens/feedback'
 
 import { defaultTheme } from '@/styles/default-theme'
 
@@ -23,7 +24,7 @@ export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar style="dark" translucent />
-      {fontsLoaded ? <NewMeal /> : <Loading />}
+      {fontsLoaded ? <Feedback /> : <Loading />}
     </ThemeProvider>
   )
 }
