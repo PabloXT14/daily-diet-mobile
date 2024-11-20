@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 import type { MealDTO } from '@/@types/meal'
 
 import { Container, Divider, Status, Time, Title } from './styles'
@@ -9,7 +11,7 @@ type MealItemProps = {
 export function MealItem({ meal }: MealItemProps) {
   return (
     <Container>
-      <Time>{new Date(meal.datetime).toLocaleTimeString('pt-BR')}</Time>
+      <Time>{dayjs(meal.datetime).format('HH:mm')}</Time>
 
       <Divider />
 

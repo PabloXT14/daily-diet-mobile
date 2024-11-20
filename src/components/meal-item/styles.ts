@@ -14,7 +14,7 @@ export const Container = styled.View`
 export const Time = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.gray[950]};
-    font-family: ${theme.fontFamily.regular};
+    font-family: ${theme.fontFamily.bold};
     font-size: ${theme.fontSize.xs}px;
     line-height: 16px; /* 130% */
   `}
