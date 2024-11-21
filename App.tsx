@@ -12,9 +12,10 @@ import { Home } from '@/screens/home'
 import { Statistics } from '@/screens/statistics'
 import { NewMeal } from '@/screens/new-meal'
 import { Feedback } from '@/screens/feedback'
+import { MealDetails } from '@/screens/meal-details'
+import { EditMeal } from '@/screens/edit-meal'
 
 import { defaultTheme } from '@/styles/default-theme'
-import { MealDetails } from '@/screens/meal-details'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +26,7 @@ export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar style="dark" translucent />
-      {fontsLoaded ? <Home /> : <Loading />}
+      {fontsLoaded ? <EditMeal /> : <Loading />}
     </ThemeProvider>
   )
 }
