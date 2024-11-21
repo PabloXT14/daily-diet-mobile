@@ -26,7 +26,7 @@ export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar style="dark" translucent />
-      {fontsLoaded ? <EditMeal /> : <Loading />}
+      {fontsLoaded ? <MealDetails /> : <Loading />}
     </ThemeProvider>
   )
 }

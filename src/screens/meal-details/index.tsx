@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
@@ -5,6 +6,7 @@ import dayjs from 'dayjs'
 
 import type { MealDTO } from '@/@types/meal'
 import { Button } from '@/components/button'
+import { ReusableModal } from '@/components/modal'
 
 import {
   ButtonGoBack,
@@ -13,6 +15,7 @@ import {
   Content,
   DateAndTimeDescription,
   DateAndTimeTitle,
+  DeleteModalTitle,
   Header,
   HeaderTitle,
   InfoContainer,
@@ -33,7 +36,17 @@ export function MealDetails() {
     isInDiet: true,
   }
 
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
+
   const { colors } = useTheme()
+
+  function openDeleteModal() {
+    setIsDeleteModalVisible(true)
+  }
+
+  function closeDeleteModal() {
+    setIsDeleteModalVisible(false)
+  }
 
   return (
     <Container>
@@ -73,12 +86,38 @@ export function MealDetails() {
             <Button.Title>Editar refeição</Button.Title>
           </Button>
 
-          <Button variant="secondary">
+          <Button variant="secondary" onPress={openDeleteModal}>
             <Trash size={18} color={colors.gray[950]} />
             <Button.Title variant="secondary">Excluir refeição</Button.Title>
           </Button>
         </View>
       </Content>
+
+      <ReusableModal
+        visible={isDeleteModalVisible}
+        onRequestClose={closeDeleteModal}
+      >
+        <DeleteModalTitle>
+          Deseja realmente excluir o registro da refeição?
+        </DeleteModalTitle>
+
+        <View style={{ flexDirection: 'row', gap: 12 }}>
+          <Button
+            variant="secondary"
+            onPress={closeDeleteModal}
+            style={{ flex: 1 }}
+          >
+            <Button.Title variant="secondary">Cancelar</Button.Title>
+          </Button>
+
+          <Button
+            onPress={() => console.log('delete button pressed')}
+            style={{ flex: 1 }}
+          >
+            <Button.Title>Sim, excluir</Button.Title>
+          </Button>
+        </View>
+      </ReusableModal>
     </Container>
   )
 }

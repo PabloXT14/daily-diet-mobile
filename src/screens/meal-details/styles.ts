@@ -131,3 +131,15 @@ export const TagStatus = styled.View<TagStatusProps>`
   border-radius: 9999px;
   background-color: ${({ theme, variant }) => (variant === 'positive' ? theme.colors.green[500] : theme.colors.red[600])};
 `
+
+export const DeleteModalTitle = styled.Text`
+  text-align: center;
+  margin-bottom: 32px;
+
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[900]};
+    font-family: ${theme.fontFamily.bold};
+    font-size: ${theme.fontSize.lg}px;
+    line-height: 24px; /* 130% */
+  `}
+`
