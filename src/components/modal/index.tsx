@@ -1,18 +1,31 @@
-import { Modal, TouchableWithoutFeedback, type ModalProps } from 'react-native'
-import { ModalContainer, Overlay } from './styles'
+import type { ReactNode } from 'react'
+import { View } from 'react-native'
+import Modal from 'react-native-modal'
 
-type ReusableModalProps = ModalProps
+import { ModalContainer } from './styles'
 
-export function ReusableModal({ children, ...props }: ReusableModalProps) {
+type ReusableModalProps = {
+  children: ReactNode
+  isVisible: boolean
+  onClose: () => void
+}
+
+export function ReusableModal({
+  children,
+  isVisible,
+  onClose,
+}: ReusableModalProps) {
   return (
-    <Modal transparent animationType="fade" {...props}>
-      <TouchableWithoutFeedback onPress={props.onRequestClose}>
-        <Overlay>
-          <TouchableWithoutFeedback>
-            <ModalContainer>{children}</ModalContainer>
-          </TouchableWithoutFeedback>
-        </Overlay>
-      </TouchableWithoutFeedback>
+    <Modal
+      animationIn="fadeIn"
+      animationOut="fadeOut"
+      useNativeDriver
+      isVisible={isVisible}
+      onBackdropPress={onClose}
+    >
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <ModalContainer>{children}</ModalContainer>
+      </View>
     </Modal>
   )
 }

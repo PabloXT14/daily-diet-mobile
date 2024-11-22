@@ -12,7 +12,8 @@ export const Overlay = styled.View`
 export const ModalContainer = styled.View`
   z-index: 5;
 
-  width: 80%;
+  margin: 0 auto;
+  width: 90%;
   padding: 24px;
   
   background-color: ${({ theme }) => theme.colors.gray[50]};

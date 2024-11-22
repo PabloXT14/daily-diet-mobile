@@ -94,8 +94,8 @@ export function MealDetails() {
       </Content>
 
       <ReusableModal
-        visible={isDeleteModalVisible}
-        onRequestClose={closeDeleteModal}
+        isVisible={isDeleteModalVisible}
+        onClose={closeDeleteModal}
       >
         <DeleteModalTitle>
           Deseja realmente excluir o registro da refeição?
