@@ -8,12 +8,7 @@ import {
 } from '@expo-google-fonts/nunito-sans'
 
 import { Loading } from '@/components/loading'
-import { Home } from '@/screens/home'
-import { Statistics } from '@/screens/statistics'
-import { NewMeal } from '@/screens/new-meal'
-import { Feedback } from '@/screens/feedback'
-import { MealDetails } from '@/screens/meal-details'
-import { EditMeal } from '@/screens/edit-meal'
+import { Routes } from '@/routes'
 
 import { defaultTheme } from '@/styles/default-theme'
 
@@ -26,7 +21,7 @@ export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar style="dark" translucent />
-      {fontsLoaded ? <MealDetails /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   )
 }
