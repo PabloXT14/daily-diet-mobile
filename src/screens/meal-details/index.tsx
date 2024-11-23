@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 import dayjs from 'dayjs'
+import { useRoute, useNavigation } from '@react-navigation/native'
 
 import type { MealDTO } from '@/@types/meal'
 import { Button } from '@/components/button'
@@ -26,6 +27,10 @@ import {
   TagText,
 } from './styles'
 
+type RouteParams = {
+  mealId: string
+}
+
 export function MealDetails() {
   const mealData: MealDTO = {
     id: '1',
@@ -40,6 +45,21 @@ export function MealDetails() {
 
   const { colors } = useTheme()
 
+  const navigation = useNavigation()
+  const route = useRoute()
+
+  const { mealId } = route.params as RouteParams
+
+  console.log('MEAL_ID: ', mealId)
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
+
+  function handleEditMeal() {
+    navigation.navigate('edit-meal', { mealId })
+  }
+
   function openDeleteModal() {
     setIsDeleteModalVisible(true)
   }
@@ -51,7 +71,7 @@ export function MealDetails() {
   return (
     <Container>
       <Header variant={mealData.isInDiet ? 'positive' : 'negative'}>
-        <ButtonGoBack activeOpacity={0.7}>
+        <ButtonGoBack activeOpacity={0.7} onPress={handleGoBack}>
           <ButtonGoBackIcon />
         </ButtonGoBack>
 
@@ -81,7 +101,7 @@ export function MealDetails() {
         </InfoContainer>
 
         <View style={{ gap: 12 }}>
-          <Button>
+          <Button onPress={handleEditMeal}>
             <PencilSimpleLine size={18} color={colors.white} />
             <Button.Title>Editar refeição</Button.Title>
           </Button>

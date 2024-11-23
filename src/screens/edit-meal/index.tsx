@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { KeyboardAvoidingView, Platform, View } from 'react-native'
+import { useRoute, useNavigation } from '@react-navigation/native'
 
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
@@ -33,6 +34,10 @@ const FAKE_MEAL: MealDTO = {
   isInDiet: false,
 }
 
+type RouteParams = {
+  mealId: string
+}
+
 export function EditMeal() {
   const [name, setName] = useState(FAKE_MEAL.name)
   const [description, setDescription] = useState(FAKE_MEAL.description)
@@ -41,6 +46,15 @@ export function EditMeal() {
   )
   const [time, setTime] = useState(dayjs(FAKE_MEAL.datetime).format('HH:mm'))
   const [isInDiet, setIsInDiet] = useState(FAKE_MEAL.isInDiet)
+
+  const navigation = useNavigation()
+  const route = useRoute()
+
+  const { mealId } = route.params as RouteParams
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
 
   function applyDateMask(value: string) {
     const onlyNumbers = value.replace(/\D/g, '')
@@ -70,10 +84,16 @@ export function EditMeal() {
     }
   }
 
+  function handleSaveMeal() {
+    // TODO: lógica de editar refeição
+
+    handleGoBack()
+  }
+
   return (
     <Container>
       <Header>
-        <ButtonGoBack activeOpacity={0.7}>
+        <ButtonGoBack activeOpacity={0.7} onPress={handleGoBack}>
           <ButtonGoBackIcon />
         </ButtonGoBack>
 
@@ -138,7 +158,7 @@ export function EditMeal() {
           </Form>
         </KeyboardAvoidingView>
 
-        <Button>
+        <Button onPress={handleSaveMeal}>
           <Button.Title>Salvar alterações</Button.Title>
         </Button>
       </Content>

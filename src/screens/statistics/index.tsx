@@ -1,4 +1,6 @@
 import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+
 import {
   Container,
   Content,
@@ -15,10 +17,16 @@ import {
 } from './styles'
 
 export function Statistics() {
+  const navigation = useNavigation()
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
+
   return (
     <Container>
       <PercentContainer variant="primary">
-        <PercentButton>
+        <PercentButton activeOpacity={0.7} onPress={handleGoBack}>
           <PercentIcon variant="primary" />
         </PercentButton>
 

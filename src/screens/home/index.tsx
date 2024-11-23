@@ -2,6 +2,7 @@ import { FlatList } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { Plus } from 'phosphor-react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useNavigation } from '@react-navigation/native'
 
 import { Profile } from '@/components/profile'
 import { Button } from '@/components/button'
@@ -87,10 +88,18 @@ const MEALS_BY_DATE: Record<string, MealDTO[]> = {
   ],
 }
 
-// const MEALS_BY_DATE: Record<string, MealDTO[]> = {}
-
 export function Home() {
   const { colors } = useTheme()
+
+  const navigation = useNavigation()
+
+  function handleMealsStatistics() {
+    navigation.navigate('statistics')
+  }
+
+  function handleNewMeal() {
+    navigation.navigate('new-meal')
+  }
 
   return (
     <Container>
@@ -101,10 +110,7 @@ export function Home() {
       </Header>
 
       <PercentContainer variant="primary">
-        <PercentButton
-          activeOpacity={0.7}
-          onPress={() => console.log('percent button pressed')}
-        >
+        <PercentButton activeOpacity={0.7} onPress={handleMealsStatistics}>
           <PercentIcon variant="primary" />
         </PercentButton>
 
@@ -117,7 +123,7 @@ export function Home() {
         <MealsNewContainer>
           <MealsTitle>Refeições</MealsTitle>
 
-          <Button>
+          <Button onPress={handleNewMeal}>
             <Plus size={18} color={colors.white} />
             <Button.Title>Nova refeição</Button.Title>
           </Button>
@@ -135,7 +141,7 @@ export function Home() {
               ? { flex: 1 }
               : {
                   gap: 32,
-                  paddingBottom: 100,
+                  paddingBottom: 160,
                 }
           }
           ListEmptyComponent={() => (
@@ -146,6 +152,7 @@ export function Home() {
 
       <LinearGradient
         colors={['transparent', colors.gray[50]]}
+        pointerEvents="none"
         style={{
           position: 'absolute',
           bottom: 0,

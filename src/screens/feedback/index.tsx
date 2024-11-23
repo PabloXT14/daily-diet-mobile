@@ -1,3 +1,9 @@
+import { Button } from '@/components/button'
+import { useRoute, useNavigation } from '@react-navigation/native'
+
+import FeedbackPositive from '@/assets/img-feedback-positive.svg'
+import FeedbackNegative from '@/assets/img-feedback-negative.svg'
+
 import {
   Container,
   Description,
@@ -6,12 +12,19 @@ import {
   Title,
 } from './styles'
 
-import FeedbackPositive from '@/assets/img-feedback-positive.svg'
-import FeedbackNegative from '@/assets/img-feedback-negative.svg'
-import { Button } from '@/components/button'
+type RouteParams = {
+  isInDiet: boolean
+}
 
 export function Feedback() {
-  const isInDiet = false
+  const navigation = useNavigation()
+  const route = useRoute()
+
+  const { isInDiet } = route.params as RouteParams
+
+  function handleGoHome() {
+    navigation.navigate('home')
+  }
 
   return (
     <Container>
@@ -36,7 +49,7 @@ export function Feedback() {
 
       {isInDiet ? <FeedbackPositive /> : <FeedbackNegative />}
 
-      <Button style={{ width: 'auto' }}>
+      <Button style={{ width: 'auto' }} onPress={handleGoHome}>
         <Button.Title>Ir para a página inicial</Button.Title>
       </Button>
     </Container>

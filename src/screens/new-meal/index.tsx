@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { KeyboardAvoidingView, Platform, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
@@ -26,7 +27,19 @@ const keyboardAvoidingBehavior =
 export function NewMeal() {
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
-  const [isInDiet, setIsInDiet] = useState(true)
+  const [isInDiet, setIsInDiet] = useState<boolean | null>(null)
+
+  const navigation = useNavigation()
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
+
+  function handleFeedback() {
+    if (isInDiet === null) return
+
+    navigation.navigate('feedback', { isInDiet })
+  }
 
   function applyDateMask(value: string) {
     const onlyNumbers = value.replace(/\D/g, '')
@@ -56,10 +69,16 @@ export function NewMeal() {
     }
   }
 
+  function handleCreateMeal() {
+    // TODO: logica para criar refeição
+
+    handleFeedback()
+  }
+
   return (
     <Container>
       <Header>
-        <ButtonGoBack activeOpacity={0.7}>
+        <ButtonGoBack activeOpacity={0.7} onPress={handleGoBack}>
           <ButtonGoBackIcon />
         </ButtonGoBack>
 
@@ -108,13 +127,13 @@ export function NewMeal() {
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <Toggle
                   title="Sim"
-                  isChecked={isInDiet}
+                  isChecked={isInDiet === true}
                   onPress={() => setIsInDiet(true)}
                 />
                 <Toggle
                   title="Nao"
                   variant="secondary"
-                  isChecked={!isInDiet}
+                  isChecked={isInDiet === false}
                   onPress={() => setIsInDiet(false)}
                 />
               </View>
@@ -122,7 +141,7 @@ export function NewMeal() {
           </Form>
         </KeyboardAvoidingView>
 
-        <Button>
+        <Button onPress={handleCreateMeal}>
           <Button.Title>Cadastrar refeição</Button.Title>
         </Button>
       </Content>
