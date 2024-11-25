@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { ThemeProvider } from 'styled-components/native'
+import Toast from 'react-native-toast-message'
 
 import {
   useFonts,
@@ -22,6 +23,7 @@ export default function App() {
     <ThemeProvider theme={defaultTheme}>
       <StatusBar style="dark" translucent />
       {fontsLoaded ? <Routes /> : <Loading />}
+      <Toast />
     </ThemeProvider>
   )
 }
