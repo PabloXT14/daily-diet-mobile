@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 import dayjs from 'dayjs'
-import { useRoute, useNavigation } from '@react-navigation/native'
+import {
+  useRoute,
+  useNavigation,
+  useFocusEffect,
+} from '@react-navigation/native'
 
-import type { MealDTO } from '@/@types/meal'
 import { Button } from '@/components/button'
 import { ReusableModal } from '@/components/modal'
+import { useMealsStore } from '@/store/meals'
 
 import {
   ButtonGoBack,
@@ -26,31 +30,23 @@ import {
   TagStatus,
   TagText,
 } from './styles'
+import type { MealDTO } from '@/@types/meal'
 
 type RouteParams = {
   mealId: string
 }
 
 export function MealDetails() {
-  const mealData: MealDTO = {
-    id: '1',
-    name: 'Sanduíche',
-    description:
-      'Sanduíche de pão integral com atum e salada de alface e tomate',
-    datetime: '2023-02-08T10:00:00',
-    isInDiet: true,
-  }
-
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
-
+  const { getMealById } = useMealsStore()
   const { colors } = useTheme()
+
+  const [mealData, setMealData] = useState<MealDTO>({} as MealDTO)
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
 
   const navigation = useNavigation()
   const route = useRoute()
 
   const { mealId } = route.params as RouteParams
-
-  console.log('MEAL_ID: ', mealId)
 
   function handleGoBack() {
     navigation.goBack()
@@ -67,6 +63,18 @@ export function MealDetails() {
   function closeDeleteModal() {
     setIsDeleteModalVisible(false)
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      const meal = getMealById(mealId)
+
+      if (!meal) {
+        return navigation.navigate('home')
+      }
+
+      setMealData(meal)
+    }, [])
+  )
 
   return (
     <Container>
