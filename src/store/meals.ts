@@ -1,11 +1,12 @@
 import { create } from 'zustand'
+import { createId } from '@paralleldrive/cuid2'
+import dayjs from 'dayjs'
 
 import type { MealDTO, MealsByDateDTO } from '@/@types/meal'
-import dayjs from 'dayjs'
 
 type MealsStore = {
   mealsByDate: MealsByDateDTO
-  addMeal: (meal: MealDTO) => void
+  addMeal: (meal: Omit<MealDTO, 'id'>) => void
   getMealById: (mealId: string) => MealDTO | undefined
   // updateMeal: (meal: MealDTO) => void
   removeMeal: (date: string, mealId: string) => void
@@ -83,7 +84,13 @@ export const useMealsStore = create<MealsStore>((set, get) => ({
       return {
         mealsByDate: {
           ...state.mealsByDate,
-          [date]: [...state.mealsByDate[date], meal],
+          [date]: [
+            ...(state.mealsByDate[date] || []),
+            {
+              id: createId(),
+              ...meal,
+            },
+          ],
         },
       }
     }),
