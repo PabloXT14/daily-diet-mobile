@@ -9,3 +9,10 @@ export type MealDTO = {
 export type MealsByDateDTO = {
   [date: string]: MealDTO[]
 }
+
+export type MealsStatisticsDTO = {
+  totalMeals: number
+  totalMealsInDiet: number
+  totalMealsOutDiet: number
+  bestSequenceInDiet: number
+}

@@ -2,12 +2,13 @@ import { create } from 'zustand'
 import { createId } from '@paralleldrive/cuid2'
 import dayjs from 'dayjs'
 
-import type { MealDTO, MealsByDateDTO } from '@/@types/meal'
+import type { MealDTO, MealsByDateDTO, MealsStatisticsDTO } from '@/@types/meal'
 
 type MealsStore = {
   mealsByDate: MealsByDateDTO
   addMeal: (meal: Omit<MealDTO, 'id'>) => void
   getMealById: (mealId: string) => MealDTO | undefined
+  getMealsStatistics: () => MealsStatisticsDTO
   // updateMeal: (meal: MealDTO) => void
   removeMeal: (date: string, mealId: string) => void
 }
@@ -19,14 +20,14 @@ const MEALS_BY_DATE: Record<string, MealDTO[]> = {
       name: 'Refeição 8',
       description: 'Descrição da refeição 8',
       datetime: '2023-02-09T14:00:00',
-      isInDiet: true,
+      isInDiet: false,
     },
     {
       id: '7',
       name: 'Refeição 7',
       description: 'Descrição da refeição 7',
       datetime: '2023-02-09T13:00:00',
-      isInDiet: false,
+      isInDiet: true,
     },
     {
       id: '6',
@@ -133,6 +134,37 @@ export const useMealsStore = create<MealsStore>((set, get) => ({
       .find(meal => meal.id === mealId)
 
     return meal
+  },
+  getMealsStatistics: () => {
+    const meals = Object.values(get().mealsByDate).flat()
+
+    const totalMeals = meals.length
+
+    const totalMealsInDiet = meals.filter(meal => meal.isInDiet).length
+
+    const totalMealsOutDiet = meals.filter(meal => !meal.isInDiet).length
+
+    let bestSequenceInDiet = 0
+    let currentSequenceInDiet = 0
+
+    meals.map(meal => {
+      if (meal.isInDiet) {
+        currentSequenceInDiet++
+      } else {
+        currentSequenceInDiet = 0
+      }
+
+      if (currentSequenceInDiet > bestSequenceInDiet) {
+        bestSequenceInDiet = currentSequenceInDiet
+      }
+    })
+
+    return {
+      totalMeals,
+      totalMealsInDiet,
+      totalMealsOutDiet,
+      bestSequenceInDiet,
+    }
   },
   removeMeal: (date, mealId) =>
     set(state => {

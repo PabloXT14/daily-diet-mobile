@@ -26,10 +26,13 @@ import DailyDietLogo from '@/assets/daily-diet-logo.svg'
 import { useMealsStore } from '@/store/meals'
 
 export function Home() {
-  const { mealsByDate } = useMealsStore()
+  const { mealsByDate, getMealsStatistics } = useMealsStore()
   const { colors } = useTheme()
 
   const navigation = useNavigation()
+
+  const { totalMeals, totalMealsInDiet } = getMealsStatistics()
+  const mealsInDietPercent = (totalMealsInDiet / totalMeals) * 100
 
   function handleMealsStatistics() {
     navigation.navigate('statistics')
@@ -47,12 +50,16 @@ export function Home() {
         <Profile source={{ uri: 'https://github.com/pabloxt14.png' }} />
       </Header>
 
-      <PercentContainer variant="primary">
+      <PercentContainer
+        variant={mealsInDietPercent > 50 ? 'primary' : 'secondary'}
+      >
         <PercentButton activeOpacity={0.7} onPress={handleMealsStatistics}>
-          <PercentIcon variant="primary" />
+          <PercentIcon
+            variant={mealsInDietPercent > 50 ? 'primary' : 'secondary'}
+          />
         </PercentButton>
 
-        <PercentNumber>90,86%</PercentNumber>
+        <PercentNumber>{mealsInDietPercent.toFixed(2)}%</PercentNumber>
 
         <PercentDescription>das refeições dentro da dieta</PercentDescription>
       </PercentContainer>
