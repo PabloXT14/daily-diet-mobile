@@ -1,5 +1,6 @@
 import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useMealsStore } from '@/store/meals'
 
 import {
   Container,
@@ -17,7 +18,18 @@ import {
 } from './styles'
 
 export function Statistics() {
+  const { getMealsStatistics } = useMealsStore()
+
   const navigation = useNavigation()
+
+  const {
+    bestSequenceInDiet,
+    totalMeals,
+    totalMealsInDiet,
+    totalMealsOutDiet,
+  } = getMealsStatistics()
+
+  const mealsInDietPercent = (totalMealsInDiet / totalMeals) * 100
 
   function handleGoBack() {
     navigation.goBack()
@@ -25,12 +37,16 @@ export function Statistics() {
 
   return (
     <Container>
-      <PercentContainer variant="primary">
+      <PercentContainer
+        variant={mealsInDietPercent > 50 ? 'primary' : 'secondary'}
+      >
         <PercentButton activeOpacity={0.7} onPress={handleGoBack}>
-          <PercentIcon variant="primary" />
+          <PercentIcon
+            variant={mealsInDietPercent > 50 ? 'primary' : 'secondary'}
+          />
         </PercentButton>
 
-        <PercentNumber>90,86%</PercentNumber>
+        <PercentNumber>{mealsInDietPercent.toFixed(2)}%</PercentNumber>
 
         <PercentDescription>das refeições dentro da dieta</PercentDescription>
       </PercentContainer>
@@ -40,7 +56,7 @@ export function Statistics() {
 
         <ContentData>
           <StatisticCard color="gray">
-            <StatisticCardNumber>22</StatisticCardNumber>
+            <StatisticCardNumber>{bestSequenceInDiet}</StatisticCardNumber>
 
             <StatisticCardDescription>
               melhor sequencia de pratos dentro da dieta
@@ -48,7 +64,7 @@ export function Statistics() {
           </StatisticCard>
 
           <StatisticCard color="gray">
-            <StatisticCardNumber>109</StatisticCardNumber>
+            <StatisticCardNumber>{totalMeals}</StatisticCardNumber>
 
             <StatisticCardDescription>
               refeições registradas
@@ -57,7 +73,7 @@ export function Statistics() {
 
           <View style={{ flexDirection: 'row', gap: 12 }}>
             <StatisticCard color="green" style={{ flex: 1 }}>
-              <StatisticCardNumber>99</StatisticCardNumber>
+              <StatisticCardNumber>{totalMealsInDiet}</StatisticCardNumber>
 
               <StatisticCardDescription>
                 refeições dentro da dieta
@@ -65,7 +81,7 @@ export function Statistics() {
             </StatisticCard>
 
             <StatisticCard color="red" style={{ flex: 1 }}>
-              <StatisticCardNumber>10</StatisticCardNumber>
+              <StatisticCardNumber>{totalMealsOutDiet}</StatisticCardNumber>
 
               <StatisticCardDescription>
                 refeições fora da dieta
