@@ -37,7 +37,7 @@ type RouteParams = {
 }
 
 export function MealDetails() {
-  const { getMealById } = useMealsStore()
+  const { getMealById, removeMeal } = useMealsStore()
   const { colors } = useTheme()
 
   const [mealData, setMealData] = useState<MealDTO>({} as MealDTO)
@@ -62,6 +62,14 @@ export function MealDetails() {
 
   function closeDeleteModal() {
     setIsDeleteModalVisible(false)
+  }
+
+  function handleRemoveMeal() {
+    const mealDate = dayjs(mealData.datetime).format('YYYY-MM-DD')
+
+    removeMeal(mealDate, mealId)
+
+    navigation.navigate('home')
   }
 
   useFocusEffect(
@@ -138,10 +146,7 @@ export function MealDetails() {
             <Button.Title variant="secondary">Cancelar</Button.Title>
           </Button>
 
-          <Button
-            onPress={() => console.log('delete button pressed')}
-            style={{ flex: 1 }}
-          >
+          <Button onPress={handleRemoveMeal} style={{ flex: 1 }}>
             <Button.Title>Sim, excluir</Button.Title>
           </Button>
         </View>
