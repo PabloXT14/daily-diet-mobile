@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { KeyboardAvoidingView, Platform, View } from 'react-native'
 import { useRoute, useNavigation } from '@react-navigation/native'
+import toast from 'react-native-toast-message'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
@@ -8,6 +11,7 @@ import { Toggle } from '@/components/toggle'
 import { dateApplyMask } from '@/utils/masks/date-apply-mask'
 import { hourApplyMask } from '@/utils/masks/hour-apply-mask'
 import type { MealDTO } from '@/@types/meal'
+import { useMealsStore } from '@/store/meals'
 
 import {
   ButtonGoBack,
@@ -21,36 +25,26 @@ import {
   IsInDietContainer,
   IsInDietTitle,
 } from './styles'
-import dayjs from 'dayjs'
 
 const keyboardAvoidingBehavior =
   Platform.OS === 'android' ? 'height' : 'position'
-
-const FAKE_MEAL: MealDTO = {
-  id: '1',
-  name: 'Macarrão com molho de tomate',
-  description: 'Macarrão feito com molho de tomate e molho de tomate',
-  datetime: '2023-02-08T10:00:00',
-  isInDiet: false,
-}
 
 type RouteParams = {
   mealId: string
 }
 
 export function EditMeal() {
-  const [name, setName] = useState(FAKE_MEAL.name)
-  const [description, setDescription] = useState(FAKE_MEAL.description)
-  const [date, setDate] = useState(
-    dayjs(FAKE_MEAL.datetime).format('DD/MM/YYYY')
-  )
-  const [time, setTime] = useState(dayjs(FAKE_MEAL.datetime).format('HH:mm'))
-  const [isInDiet, setIsInDiet] = useState(FAKE_MEAL.isInDiet)
-
+  const { getMealById, updateMeal } = useMealsStore()
   const navigation = useNavigation()
   const route = useRoute()
 
   const { mealId } = route.params as RouteParams
+
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [isInDiet, setIsInDiet] = useState<boolean | null>(null)
 
   function handleGoBack() {
     navigation.goBack()
@@ -85,10 +79,69 @@ export function EditMeal() {
   }
 
   function handleSaveMeal() {
-    // TODO: lógica de editar refeição
+    if (!name || !description || !date || !time || isInDiet === null) {
+      return toast.show({
+        type: 'error',
+        text1: 'Preencha todos os campos',
+      })
+    }
 
-    handleGoBack()
+    try {
+      const [day, month, year] = date.split('/')
+      const formattedDate = `${year}-${month}-${day}`
+
+      const dateHourString = `${formattedDate}T${time}`
+
+      const isValidDate = dayjs(
+        dateHourString,
+        'YYYY-MM-DDTHH:mm',
+        true
+      ).isValid()
+
+      if (!isValidDate) {
+        return toast.show({
+          type: 'error',
+          text1: 'Data ou hora inválida',
+        })
+      }
+
+      const datetime = dayjs(dateHourString).format('YYYY-MM-DDTHH:mm:ss')
+
+      const updatedMeal: MealDTO = {
+        id: mealId,
+        name,
+        description,
+        datetime,
+        isInDiet,
+      }
+
+      updateMeal(updatedMeal)
+
+      handleGoBack()
+    } catch (error) {
+      console.log(error)
+
+      return toast.show({
+        type: 'error',
+        text1: 'Erro ao atualizar refeição',
+        text2: 'verifique os dados e tente novamente',
+      })
+    }
   }
+
+  useEffect(() => {
+    const meal = getMealById(mealId)
+
+    if (!meal) {
+      return handleGoBack()
+    }
+
+    setName(meal.name)
+    setDescription(meal.description)
+    setDate(dayjs(meal.datetime).format('DD/MM/YYYY'))
+    setTime(dayjs(meal.datetime).format('HH:mm'))
+    setIsInDiet(meal.isInDiet)
+  }, [mealId])
 
   return (
     <Container>
@@ -144,13 +197,13 @@ export function EditMeal() {
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <Toggle
                   title="Sim"
-                  isChecked={isInDiet}
+                  isChecked={isInDiet === true}
                   onPress={() => setIsInDiet(true)}
                 />
                 <Toggle
                   title="Nao"
                   variant="secondary"
-                  isChecked={!isInDiet}
+                  isChecked={isInDiet === false}
                   onPress={() => setIsInDiet(false)}
                 />
               </View>

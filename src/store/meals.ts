@@ -9,8 +9,8 @@ type MealsStore = {
   addMeal: (meal: Omit<MealDTO, 'id'>) => void
   getMealById: (mealId: string) => MealDTO | undefined
   getMealsStatistics: () => MealsStatisticsDTO
-  // updateMeal: (meal: MealDTO) => void
   removeMeal: (date: string, mealId: string) => void
+  updateMeal: (updatedMeal: MealDTO) => void
 }
 
 const MEALS_BY_DATE: Record<string, MealDTO[]> = {
@@ -187,4 +187,15 @@ export const useMealsStore = create<MealsStore>((set, get) => ({
         },
       }
     }),
+  updateMeal: updatedMeal => {
+    const { getMealById, removeMeal, addMeal } = get()
+
+    const oldMeal = getMealById(updatedMeal.id)
+
+    const date = dayjs(oldMeal?.datetime).format('YYYY-MM-DD')
+
+    removeMeal(date, updatedMeal.id)
+
+    addMeal(updatedMeal)
+  },
 }))
