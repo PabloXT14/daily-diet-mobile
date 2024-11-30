@@ -46,7 +46,9 @@ export function Statistics() {
           />
         </PercentButton>
 
-        <PercentNumber>{mealsInDietPercent.toFixed(2)}%</PercentNumber>
+        <PercentNumber>
+          {mealsInDietPercent ? mealsInDietPercent.toFixed(2) : 0}%
+        </PercentNumber>
 
         <PercentDescription>das refeições dentro da dieta</PercentDescription>
       </PercentContainer>
