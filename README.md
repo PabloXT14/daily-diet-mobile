@@ -3,7 +3,6 @@
     src=".github/daily-diet-logo.svg"
     title="Daily Diet"
     alt="Daily Diet"
-    style="background-color: white;"
   />
 </h1>
 
